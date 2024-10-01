@@ -405,12 +405,42 @@ def visualize_pupil_centers(csv_file, pattern):
     plt.figure(figsize=(8, 8))
     plt.scatter(df['px'], df['py'], c='red', marker='o', label='Pupil Centers')
     
-    plt.xlim(150, 60) 
-    plt.ylim(150, 60)  
+    plt.xlim(150, 60)
+    plt.ylim(150, 60)
 
     plt.xlabel('X Coordinate (px)')
     plt.ylabel('Y Coordinate (px)')
     plt.title('Scatter Plot of Pupil Centers')
+    plt.legend()
+    plt.show()
+
+def my_visualize_pupil_centers(csv_file, pattern, xlims : tuple[int, int], ylims : tuple[int, int]):
+    """
+    Create a scatter plot of the detected pupil centers, find the top N most populated grid areas, 
+    and calculate the mean center for each.
+
+    Parameters:
+        csv_file (str): The path to the CSV file containing the pupil coordinates (px, py).
+        output_directory (str): The directory where the scatter plot image will be saved.
+        grid_size (int): The size of each grid cell in pixels (default is 7x7).
+        top_n (int): The number of top populated areas to consider (default is 10).
+    """
+    print(os.path.join(os.getcwd(), csv_file))
+
+    df = pd.read_csv(os.path.join(os.getcwd(), csv_file))
+
+    plt.figure(figsize=(8, 8))
+    plt.scatter(df['px'], df['py'], c='red', marker='o', label='Pupil Centers')
+    
+    plt.xlim(max(xlims), min(xlims))
+    plt.ylim(max(ylims), min(ylims))
+    plt.grid(True)
+
+    plt.xlabel('X Coordinate (px)')
+    plt.ylabel('Y Coordinate (px)')
+    plt.title('Scatter Plot of Pupil Centers')
+    plt.xticks(range(min(xlims), max(xlims)+1, 2))
+    plt.yticks(range(min(ylims), max(ylims)+1))
     plt.legend()
     plt.show()
 
