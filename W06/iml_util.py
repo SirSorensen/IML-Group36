@@ -414,6 +414,33 @@ def visualize_pupil_centers(csv_file, pattern):
     plt.legend()
     plt.show()
 
+def visualize_screen_coordinates(csv_file, pattern):
+    """
+    Create a scatter plot of the detected pupil centers, find the top N most populated grid areas, 
+    and calculate the mean center for each.
+
+    Parameters:
+        csv_file (str): The path to the CSV file containing the pupil coordinates (px, py).
+        output_directory (str): The directory where the scatter plot image will be saved.
+        grid_size (int): The size of each grid cell in pixels (default is 7x7).
+        top_n (int): The number of top populated areas to consider (default is 10).
+    """
+    print(os.path.join(os.getcwd(), csv_file))
+
+    df = pd.read_csv(os.path.join(os.getcwd(), csv_file))
+
+    plt.figure(figsize=(8, 8))
+    plt.scatter(df['sx'], df['sy'], c='red', marker='o', label='Pupil Centers')
+    
+    plt.xlim(1920, 0)
+    plt.ylim(1280, 0)  
+
+    plt.xlabel('X Coordinate (px)')
+    plt.ylabel('Y Coordinate (px)')
+    plt.title('Scatter Plot of Pupil Centers')
+    plt.legend()
+    plt.show()
+
 def gen_data_subject_0():
     D = []
 
