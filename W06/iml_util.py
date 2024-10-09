@@ -349,11 +349,11 @@ def create_image_grid(images, centers, output_directory, side='left', grid_name=
             img_color = cv.cvtColor(img_side, cv.COLOR_GRAY2BGR)
             cv.circle(img_color, (int(center_shifted[0]), int(center_shifted[1])), 5, (0, 0, 255), -1)
             ax.imshow(img_color)
-            title = image_file.split('_')[1].split('.')[0]
+            title = image_file.split('.')[0]
             ax.set_title(title)
         else:
             ax.imshow(img_side, cmap='gray')
-            title = image_file.split('_')[1].split('.')[0]
+            title = image_file.split('.')[0]
             ax.set_title(f'{title} (No center)')
         ax.axis('off')
     
@@ -439,8 +439,16 @@ def my_visualize_pupil_centers(csv_file, pattern, xlims : tuple[int, int], ylims
     plt.xlabel('X Coordinate (px)')
     plt.ylabel('Y Coordinate (px)')
     plt.title('Scatter Plot of Pupil Centers')
-    plt.xticks(range(min(xlims), max(xlims)+1, 2))
-    plt.yticks(range(min(ylims), max(ylims)+1))
+    xticks_step = (max(xlims) - min(xlims))//20
+    xticks_step = max(1, xticks_step)
+    while 10 % xticks_step != 0 or xticks_step % 5 != 0:
+        xticks_step += 1
+    plt.xticks(range(min(xlims), max(xlims)+1, xticks_step))
+    yticks_step = (max(ylims) - min(ylims))//20
+    yticks_step = max(1, yticks_step)
+    while 10 % yticks_step != 0 or yticks_step % 5 != 0:
+        yticks_step += 1
+    plt.yticks(range(min(ylims), max(ylims)+1, yticks_step))
     plt.legend()
     plt.show()
 
