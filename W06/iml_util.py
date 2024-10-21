@@ -683,6 +683,8 @@ def plot_error_surfaces(a_fixed, b_fixed, c_fixed, x, y, z):
             error_grid_ab[i, j] = compute_error(a_grid[i, j], b_grid[i, j], c_fixed, x, y, z)
 
     error_c = [compute_error(a_fixed, b_fixed, c_val, x, y, z) for c_val in c_values]
+    # error_a = [compute_error(a_val, b_fixed, c_fixed, x, y, z) for a_val in a_values]
+    # error_b = [compute_error(a_fixed, b_val, c_fixed, x, y, z) for b_val in b_values]
 
     min_error_idx = np.unravel_index(np.argmin(error_grid_ab), error_grid_ab.shape)
     min_a = a_grid[min_error_idx]
@@ -711,6 +713,21 @@ def plot_error_surfaces(a_fixed, b_fixed, c_fixed, x, y, z):
     ax2.set_xlabel('c')
     ax2.set_ylabel('Error (Sum of Squared Residuals)')
     ax2.set_title(f'Error Curve: Varying c (a = {a_fixed}, b = {b_fixed})')
+
+
+    # ax4 = fig.add_subplot(123)
+    # ax4.plot(a_values, error_a, color=colors[0])
+    # ax4.set_xlabel('a')
+    # ax4.set_ylabel('Error (Sum of Squared Residuals)')
+    # ax4.set_title(f'Error Curve: Varying a (b = {b_fixed}, c = {c_fixed})')
+
+    # ax3 = fig.add_subplot(124)
+    # ax3.plot(b_values, error_b, color=colors[0])
+    # ax3.set_xlabel('b')
+    # ax3.set_ylabel('Error (Sum of Squared Residuals)')
+    # ax3.set_title(f'Error Curve: Varying b (a = {a_fixed}, c = {c_fixed})')
+
+
     
     plt.tight_layout()
     plt.show()
